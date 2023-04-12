@@ -28,4 +28,9 @@ class AppTheme {
     color: Colors.grey.shade400,
     fontSize: 12,
   );
+
+  static const kCardTitle = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.bold,
+  );
 }
