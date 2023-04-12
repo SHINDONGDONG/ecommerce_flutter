@@ -1,31 +1,26 @@
+import 'package:ecommerce_flutter/controllers/product_controller.dart';
 import 'package:ecommerce_flutter/data/product_list.dart';
 import 'package:ecommerce_flutter/models/product_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
 import '../constatns/themes.dart';
 
-class ProductCardWidget extends StatelessWidget {
+class ProductCardWidget extends ConsumerWidget {
   const ProductCardWidget({
     super.key,
+    required this.productIndex,
   });
 
+  final int productIndex;
 
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    final product = ref.watch(productNotifierProvider);
     return Container(
-      // padding: const EdgeInsets.all(4),
-      // height: 300,
-      // width: double.infinity,
-      child: //ListView.builder(
-        // padding: const EdgeInsets.all(8),
-        // itemCount: 3,
-        // scrollDirection: Axis.horizontal,
-        // shrinkWrap: true,
-        //itemBuilder: (context, index) =>
-        Container(
           decoration: BoxDecoration(
             color: kWhiteColor,
             borderRadius: BorderRadius.circular(8),
@@ -38,7 +33,7 @@ class ProductCardWidget extends StatelessWidget {
               ),
             ],
           ),
-          margin: const EdgeInsets.all(8),
+          margin: const EdgeInsets.all(12),
           width: MediaQuery.of(context).size.width * .5,
 
           child: Column(
@@ -48,7 +43,7 @@ class ProductCardWidget extends StatelessWidget {
                   width: double.infinity,
                   margin: const EdgeInsets.all(12),
                   color: kLightBackground,
-                  child: Image.asset('assets/products/airpods.jpg'),
+                  child: Image.asset(product[productIndex].imgUrl),
                 ),
               ),
               const Gap(4),
@@ -81,7 +76,6 @@ class ProductCardWidget extends StatelessWidget {
               ),
             ],
           ),
-        ),
       );
     //);
   }

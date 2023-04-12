@@ -1,5 +1,9 @@
 import 'package:ecommerce_flutter/constatns/themes.dart';
+import 'package:ecommerce_flutter/controllers/product_controller.dart';
+import 'package:ecommerce_flutter/data/product_list.dart';
+import 'package:ecommerce_flutter/models/product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -8,11 +12,12 @@ import '../widgets/ads_banner_widget.dart';
 import '../widgets/card_widget.dart';
 import '../widgets/chip_widget.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    final product = ref.watch(productNotifierProvider);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -86,10 +91,10 @@ class HomePage extends StatelessWidget {
                 height: 300,
                 child: ListView.builder(
                   padding: const EdgeInsets.all(4),
-                  itemCount: 3,
+                  itemCount: product.length,
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
-                  itemBuilder: (context,index) =>const ProductCardWidget(),
+                  itemBuilder: (context,index) => ProductCardWidget(productIndex: index,),
                 ),
               ),
               Row(
@@ -107,14 +112,14 @@ class HomePage extends StatelessWidget {
               ),
 
               MasonryGridView.builder(
-                itemCount: 8,
+                itemCount: product.length,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2),
-                itemBuilder: (context, index) => const SizedBox(
+                itemBuilder: (context, index) => SizedBox(
                   height: 250,
-                  child: ProductCardWidget(),
+                  child: ProductCardWidget(productIndex: index,),
                 ),
               ),
             ],
