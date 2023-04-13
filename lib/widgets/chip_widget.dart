@@ -12,7 +12,7 @@ class ChipWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(2.0),
-      child: Chip(label: Text(chipLabel),backgroundColor: kWhiteColor, ),
+      child: Chip(label: Text(chipLabel),backgroundColor: Colors.grey.shade300),
     );
   }
 }

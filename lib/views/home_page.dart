@@ -12,12 +12,18 @@ import '../widgets/ads_banner_widget.dart';
 import '../widgets/card_widget.dart';
 import '../widgets/chip_widget.dart';
 
+final currentIndexProvider = StateProvider((ref) {
+  return 0;
+});
+
 class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final product = ref.watch(productNotifierProvider);
+    final currentIndex = ref.watch(currentIndexProvider);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -125,6 +131,39 @@ class HomePage extends ConsumerWidget {
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: kPrimaryColor,
+        unselectedItemColor: kSecondaryColor,
+        currentIndex: currentIndex,
+        onTap: (value) => ref.read(currentIndexProvider.notifier).update((state) => value),
+       items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
+            activeIcon: Icon(Icons.home_filled),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_outline),
+            label: 'Favorite',
+            activeIcon: Icon(Icons.favorite),
+          ),
+         BottomNavigationBarItem(
+            icon: Icon(Icons.location_on_outlined),
+            label: 'Location',
+            activeIcon: Icon(Icons.location_on),
+          ),
+         BottomNavigationBarItem(
+            icon: Icon(Icons.notifications_outlined),
+            label: 'Notification',
+            activeIcon: Icon(Icons.notifications),
+          ),
+         BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            label: 'Profile',
+            activeIcon: Icon(Icons.person),
+          ),
+        ],
       ),
     );
   }

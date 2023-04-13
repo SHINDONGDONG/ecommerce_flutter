@@ -52,18 +52,19 @@ class ProductCardWidget extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Product name Sample one size",
+                    Text(
+                      product[productIndex].title,
                       style: AppTheme.kCardTitle,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    Text("Short Description Product",
+                    Text(
+                      product[productIndex].shortDescription,
                       style: AppTheme.kBodyText,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('\$854',
+                        Text('\$${product[productIndex].price}',
                           style: AppTheme.kCardTitle,),
                         IconButton(
                           onPressed: () {},
