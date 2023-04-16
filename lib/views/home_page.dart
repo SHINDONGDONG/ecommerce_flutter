@@ -1,7 +1,6 @@
 import 'package:ecommerce_flutter/constatns/themes.dart';
 import 'package:ecommerce_flutter/controllers/product_controller.dart';
-import 'package:ecommerce_flutter/data/product_list.dart';
-import 'package:ecommerce_flutter/models/product_model.dart';
+import 'package:ecommerce_flutter/views/detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -100,7 +99,12 @@ class HomePage extends ConsumerWidget {
                   itemCount: product.length,
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
-                  itemBuilder: (context,index) => ProductCardWidget(productIndex: index,),
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap:()=> Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsPage(getIndex: index,),),),
+                    child: ProductCardWidget(
+                      productIndex: index,
+                    ),
+                  ),
                 ),
               ),
               Row(

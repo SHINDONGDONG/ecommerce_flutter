@@ -8,7 +8,7 @@ void main() {
     ProviderScope(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: DetailsPage(),
+        home: HomePage(),
       ),
     ),
   );

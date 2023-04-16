@@ -9,9 +9,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 class DetailsPage extends ConsumerWidget {
-  DetailsPage({Key? key}) : super(key: key);
+  DetailsPage({Key? key, required this.getIndex}) : super(key: key);
 
-  int getIndex = 0;
+  int getIndex;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -72,18 +72,24 @@ class DetailsPage extends ConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('\$${product[getIndex].price}',style: AppTheme.kHeadingOne,),
+                      Text('\$${product[getIndex].price * product[getIndex].qty}',style: AppTheme.kHeadingOne,),
                       Container(
                         child: Row(
                           children: [
                             IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.do_not_disturb_on_outlined,size: 30,),
+                              onPressed: () {
+                                ref.read(productNotifierProvider.notifier)
+                                    .decreaseQty(product[getIndex].pid);
+                              },
+                              icon: const Icon(Icons.do_not_disturb_on_outlined,size: 30,),
                             ),
                             Text(product[getIndex].qty.toString(),style: AppTheme.kCardTitle.copyWith(fontSize: 24),),
                             IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.add_circle_outline,size: 30,),
+                              onPressed: () {
+                                ref.read(productNotifierProvider.notifier)
+                                    .incrementQty(product[getIndex].pid);
+                              },
+                              icon: const Icon(Icons.add_circle_outline,size: 30,),
                             ),
                           ],
                         ),
