@@ -1,4 +1,5 @@
 import 'package:ecommerce_flutter/constatns/themes.dart';
+import 'package:ecommerce_flutter/controllers/itembag_controller.dart';
 import 'package:ecommerce_flutter/controllers/product_controller.dart';
 import 'package:ecommerce_flutter/views/detail_page.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
     final product = ref.watch(productNotifierProvider);
     final currentIndex = ref.watch(currentIndexProvider);
-
+    final itemBag = ref.watch(itemBagProvider);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -34,9 +35,19 @@ class HomePage extends ConsumerWidget {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: IconButton(
-                onPressed: () {}, icon: Icon(Icons.local_mall_outlined)),
+            padding: const EdgeInsets.only(right: 20,top: 10),
+            child: Badge(
+              smallSize: 12,
+              largeSize: 12,
+              label: Text(itemBag.length.toString()),
+              child: IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.local_mall,
+                  size: 24,
+                ),
+              ),
+            ),
           )
         ],
       ),

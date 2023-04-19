@@ -1,3 +1,4 @@
+import 'package:ecommerce_flutter/controllers/itembag_controller.dart';
 import 'package:ecommerce_flutter/controllers/product_controller.dart';
 import 'package:ecommerce_flutter/data/product_list.dart';
 import 'package:ecommerce_flutter/models/product_model.dart';
@@ -67,8 +68,30 @@ class ProductCardWidget extends ConsumerWidget {
                         Text('\$${product[productIndex].price}',
                           style: AppTheme.kCardTitle,),
                         IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.add_circle,size: 30,),
+                          onPressed: () {
+                            ref.read(productNotifierProvider.notifier).isSelectItem(product[productIndex].pid,productIndex);
+
+                            if(product[productIndex].isSelected == false){
+                            ref.read(itemBagProvider.notifier).addNewItemBag(
+                              ProductModel(pid: product[productIndex].pid,
+                                  imgUrl: product[productIndex].imgUrl,
+                                  title: product[productIndex].title,
+                                  price: product[productIndex].price,
+                                  shortDescription: product[productIndex].shortDescription,
+                                  longDescription: product[productIndex].longDescription,
+                                  reviews: product[productIndex].reviews,
+                                  rating: product[productIndex].rating),);
+                            } else {
+                              ref
+                              .read(itemBagProvider.notifier)
+                              .removeItem(product[productIndex].pid);
+                        }
+                            },
+                          icon: Icon(
+                            product[productIndex].isSelected
+                            ? Icons.check_circle
+                            : Icons.add_circle,
+                        size: 30,),
                         ),
                       ],
                     ),
